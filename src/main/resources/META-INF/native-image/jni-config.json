@@ -1,0 +1,11 @@
+[
+  {
+    "name": "com.mlscala.polars.PolarsJNI",
+    "methods": [
+      { "name": "createSampleDataFrame", "parameterTypes": [] },
+      { "name": "readCsv", "parameterTypes": ["java.lang.String"] },
+      { "name": "filterDataFrame", "parameterTypes": ["java.lang.String", "java.lang.String", "double"] },
+      { "name": "groupByAndSum", "parameterTypes": ["java.lang.String", "java.lang.String", "java.lang.String"] }
+    ]
+  }
+]

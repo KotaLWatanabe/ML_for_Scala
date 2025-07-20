@@ -1,0 +1,16 @@
+[
+  {
+    "name": "com.mlscala.polars.PolarsJNI",
+    "allDeclaredConstructors": true,
+    "allPublicConstructors": true,
+    "allDeclaredMethods": true,
+    "allPublicMethods": true
+  },
+  {
+    "name": "java.lang.System",
+    "methods": [
+      { "name": "load", "parameterTypes": ["java.lang.String"] },
+      { "name": "loadLibrary", "parameterTypes": ["java.lang.String"] }
+    ]
+  }
+]

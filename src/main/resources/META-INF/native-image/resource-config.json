@@ -1,0 +1,21 @@
+{
+  "resources": {
+    "includes": [
+      {
+        "pattern": "native/.*\\.so"
+      },
+      {
+        "pattern": "native/.*\\.dylib"
+      },
+      {
+        "pattern": "native/.*\\.dll"
+      }
+    ]
+  },
+  "bundles": [
+    {
+      "name": "rust-polars-native",
+      "pattern": "out/resources/native/.*"
+    }
+  ]
+}

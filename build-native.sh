@@ -16,12 +16,23 @@ NC='\033[0m' # No Color
 # Check if GraalVM is installed
 check_graalvm() {
     echo -e "${BLUE}Checking GraalVM installation...${NC}"
-    if ! command -v native-image &> /dev/null; then
-        echo -e "${RED}❌ native-image not found. Please install GraalVM and native-image.${NC}"
-        echo -e "${YELLOW}Installation instructions:${NC}"
-        echo "1. Install GraalVM: https://www.graalvm.org/downloads/"
-        echo "2. Install native-image: gu install native-image"
-        exit 1
+    
+    # First check if native-image is in PATH
+    if command -v native-image &> /dev/null; then
+        NATIVE_IMAGE_CMD="native-image"
+    else
+        # Look for native-image in coursier cache
+        COURSIER_NATIVE_IMAGE=$(find /home/kota_ubuntu/.cache/coursier/jvm -name "native-image" -type f 2>/dev/null | head -1)
+        if [ -n "$COURSIER_NATIVE_IMAGE" ] && [ -x "$COURSIER_NATIVE_IMAGE" ]; then
+            NATIVE_IMAGE_CMD="$COURSIER_NATIVE_IMAGE"
+            echo -e "${BLUE}Found native-image in coursier cache: $NATIVE_IMAGE_CMD${NC}"
+        else
+            echo -e "${RED}❌ native-image not found. Please install GraalVM and native-image.${NC}"
+            echo -e "${YELLOW}Installation instructions:${NC}"
+            echo "1. Install GraalVM: https://www.graalvm.org/downloads/"
+            echo "2. Install native-image: gu install native-image"
+            exit 1
+        fi
     fi
     
     # Show GraalVM version info
@@ -30,8 +41,8 @@ check_graalvm() {
         JAVA_VERSION=$(java -version 2>&1 | head -1)
         echo -e "${BLUE}Java version: $JAVA_VERSION${NC}"
     fi
-    if command -v native-image &> /dev/null; then
-        NATIVE_IMAGE_VERSION=$(native-image --version 2>&1 | head -1 || echo "Version info not available")
+    if [ -n "$NATIVE_IMAGE_CMD" ]; then
+        NATIVE_IMAGE_VERSION=$($NATIVE_IMAGE_CMD --version 2>&1 | head -1 || echo "Version info not available")
         echo -e "${BLUE}Native Image: $NATIVE_IMAGE_VERSION${NC}"
     fi
 }

@@ -62,7 +62,7 @@ object Main extends IOApp:
       IO.pure(ExitCode.Error)
     }
   
-  private def createSampleCsv(): IO[Unit] =
+  private inline def createSampleCsv(): IO[Unit] =
     IO {
       val csvContent = 
         """name,age,salary,department

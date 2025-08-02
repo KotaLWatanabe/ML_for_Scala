@@ -22,7 +22,7 @@ lazy val polars = (project in file("polars"))
       Libraries.cats,
       Libraries.catsEffect,
       Libraries.logback
-    ) ++ Libraries.circe,
+    ) ++ Libraries.circe ++ Libraries.fs2,
     
     // JVM options for running with JNI
     Compile / run / javaOptions ++= Seq(

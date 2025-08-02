@@ -55,6 +55,14 @@ object Main extends IOApp:
       _ <- IO.println("\nRunning plotting demo...")
       _ <- runPlottingDemo()
       
+      // Run streaming demo
+      _ <- IO.println("\nRunning streaming processing demo...")
+      _ <- StreamingDemo.run(List.empty).void
+      
+      // Run Rust streaming demo
+      _ <- IO.println("\nRunning Rust streaming demo...")
+      _ <- RustStreamingDemo.run(List.empty).void
+      
     yield ExitCode.Success
     
     program.handleErrorWith { error =>
